@@ -67,4 +67,11 @@ public class Drive extends SubsystemBase {
     public void periodic() {
         updateOdometry(gyro.getRotation2d());
     }
+
+    double leftVoltage = leftPID + leftFeedforward;
+      double rightVoltage = rightPID + rightFeedforward;
+
+      leftLeader.setVoltage(leftVoltage);
+      rightLeader.setVoltage(rightVoltage);
+      
 }

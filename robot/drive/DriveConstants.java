@@ -2,6 +2,9 @@ public class DriveConstants {
     package robot.drive;
 
     public class DriveConstants {
+
+    public static final double MAX_SPEED = 2;
+
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
     
@@ -30,5 +33,18 @@ public class DriveConstants {
         public static final double kI = 0.0;
         public static final double kD = 0.0;
     }
+
+    public void drive(double leftSpeed, double rightSpeed) {
+	final double realLeftSpeed = leftSpeed * DriveConstants.MAX_SPEED;
+	final double realRightSpeed = rightSpeed * DriveConstants.MAX_SPEED;
+	
+    final double leftFeedforward = feedforward.calculate(realLeftSpeed);
+    final double rightFeedforward = feedforward.calculate(realRightSpeed);
+
+    final double leftPID = 
+      leftPIDController.calculate(leftEncoder.getVelocity(), realLeftSpeed);
+    final double rightPID = 
+      rightPIDController.calculate(rightEncoder.getVelocity(), realRightSpeed);
+  }
 
 }
